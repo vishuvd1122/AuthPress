@@ -44,4 +44,9 @@ const passwordValidation = (req, res, next) => {
   next();
 };
 
-module.exports = { registerValidation, passwordValidation };
+
+const loginValidation = (req,res,next)=>{
+
+}
+
+module.exports = { registerValidation, passwordValidation,loginValidation };

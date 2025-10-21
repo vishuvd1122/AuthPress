@@ -40,5 +40,10 @@ const registerUser = async(req,res)=>{
 }
 
 
+const loginUser = (req,res,next)=>{
 
-module.exports = {registerUser}
+}
+
+
+
+module.exports = {registerUser,loginUser}
