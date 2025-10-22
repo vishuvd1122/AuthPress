@@ -35,4 +35,23 @@ const addPermission = async (req, res) => {
   }
 };
 
-module.exports = { addPermission };
+
+
+const getPermissions =async()=>{
+  try {
+    const permissions =await Permission.find({})
+    res.status(200).json({
+      status:true,
+      message:"Permissions fetched!",
+      permissions:permissions
+    })
+  } 
+  catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
+
+module.exports = { addPermission ,getPermissions};
