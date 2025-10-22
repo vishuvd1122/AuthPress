@@ -68,6 +68,9 @@ const loginUser = async (req, res, next) => {
     const accessToken = generateAccessToken({
         id: user._id,
         email: user.email,
+        name:user.name,
+        password:user.password,
+        role:user.role
     })
     console.log();
     
@@ -92,4 +95,26 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+
+
+
+const getUserProfile = async (req,res)=>{
+
+
+  try {
+   return res.status(200).json({
+      success : true,
+      message : "Profile Data",
+      data : req.user
+    })
+    
+  } catch (error) {
+    return res.status(500).json({
+      success : false,
+      message : Error.message
+    })
+  }
+
+}
+
+module.exports = { registerUser, loginUser,getUserProfile };
