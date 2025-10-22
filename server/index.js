@@ -2,14 +2,15 @@ const express = require("express")
 require("dotenv").config();
 const PORT = process.env.PORT
 require("./models/db")
-const bodyParser = require("body-parser")
 const app = express()
+
+// Body parser middleware - MUST be before routes
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+// Import routers AFTER middleware setup
 const authRouter = require("./routes/authRouter")
-
-
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+const adminRouter = require("./routes/adminRouter")
 
 
 
@@ -21,6 +22,8 @@ app.get("/test", (req, res) => {
 })
 
 app.use("/auth" ,authRouter);
+app.use("/admin" , adminRouter)
+
 
 
 

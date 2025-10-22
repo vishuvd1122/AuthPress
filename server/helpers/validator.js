@@ -47,15 +47,6 @@ const passwordValidation = (req, res, next) => {
 
 const loginValidation = (req,res,next)=>{
 
-  const {email, password} = req.body
-  if(!email || !password){
-    return res.status(500).json({
-      success :false,
-      message : "Email or Password can't be empty"
-    })
-  }
-  next()
-
 }
 
 module.exports = { registerValidation, passwordValidation,loginValidation };

@@ -9,8 +9,10 @@ const permissionSchema = new mongoose.Schema({
     },
     is_default:{
         type:Number,
-        default : 0
+        default : 0 
     }
+
+    //Permissions with is_default:1 will be alloted to all the users from the start automatically 
     
 })
 

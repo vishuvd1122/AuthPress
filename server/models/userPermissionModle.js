@@ -19,3 +19,6 @@ const userPermissionSchema = new mongoose.Schema({
 
 const userPermissionModel = mongoose.model("UserPermission" , userPermissionSchema)
 module.exports = userPermissionModel;
+
+
+//This permission model with signify all the permissions that a particular user has corrosponding to their ids
