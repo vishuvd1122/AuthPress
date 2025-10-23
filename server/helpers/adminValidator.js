@@ -53,4 +53,23 @@ const addCategoryVaidator = (req,res,next)=>{
   next();
 }
 
-module.exports = {permissionAddValidator,permisssionDeleteValidator,permisssionUpdateValidator,addCategoryVaidator}
+
+
+const updateCategoryValidator = (req,res,next)=>{
+
+}
+
+const addPostValidator = (req,res,next)=>{
+  const {title , description} = req.body;
+  if(!title || !description){
+    return res.status(500).json({
+      success:false,
+      message:"Enter title snd description!"
+    })
+
+  }
+  next()
+
+}
+
+module.exports = {permissionAddValidator,permisssionDeleteValidator,permisssionUpdateValidator,addCategoryVaidator,updateCategoryValidator,addPostValidator}

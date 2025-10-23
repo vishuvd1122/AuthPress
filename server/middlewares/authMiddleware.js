@@ -21,6 +21,7 @@ const verifyToken = (req, res, next) => {
     const decoded = JWT.verify(token, process.env.SECRET_KEY);
     // Support both payload shapes: { user: {...} } or direct claims
     req.user = decoded && (decoded.user || decoded);
+    
   } catch (error) {
     return res.status(401).json({
       success: false,

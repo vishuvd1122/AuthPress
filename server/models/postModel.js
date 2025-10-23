@@ -1,4 +1,5 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const Category = require("./categoryModel");
 
 const postSchema = new mongoose.Schema({
     title:{
@@ -9,10 +10,11 @@ const postSchema = new mongoose.Schema({
         type:String,
         required :true,
     },
-    categories :{
-        type:Array,
+    categories :[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:Category,
         required:false
-    }
+    }]
 })
 
 const postModel = mongoose.model("Post" , postSchema)
