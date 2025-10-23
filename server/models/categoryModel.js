@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const categorySchema = new mongoose.Schema({
-    name:{
+    category_name:{
         type:String,
         required :true,
     },
@@ -9,3 +9,6 @@ const categorySchema = new mongoose.Schema({
 
 const categoryModel = mongoose.model("Category" , categorySchema)
 module.exports = categoryModel;
+
+
+//every post will have its own category describing it

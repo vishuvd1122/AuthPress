@@ -41,4 +41,16 @@ const permisssionUpdateValidator = (req,res,next)=>{
   next();
 }
 
-module.exports = {permissionAddValidator,permisssionDeleteValidator,permisssionUpdateValidator}
+
+const addCategoryVaidator = (req,res,next)=>{
+  const {category_name} = req.body;
+  if(!category_name){
+    return res.status(500).json({
+      success:false,
+      message:"category_name is required!"
+    })
+  }
+  next();
+}
+
+module.exports = {permissionAddValidator,permisssionDeleteValidator,permisssionUpdateValidator,addCategoryVaidator}

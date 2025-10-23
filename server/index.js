@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: true }))
 // Import routers AFTER middleware setup
 const authRouter = require("./routes/authRouter")
 const adminRouter = require("./routes/adminRouter")
+const commonRouter = require("./routes/commonRoutes")
 
 
 
@@ -22,6 +23,7 @@ app.get("/test", (req, res) => {
 })
 
 app.use("/auth" ,authRouter);
+app.use("/auth" ,commonRouter);
 app.use("/admin" , adminRouter)
 
 
