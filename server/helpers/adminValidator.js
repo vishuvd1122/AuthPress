@@ -1,17 +1,14 @@
-const permissionAddValidator = (req,res,next)=>{
+const permissionAddValidator = (req, res, next) => {
+  const { permission_name } = req.body;
 
-  const {permission_name} = req.body
-
-  if(!permission_name){
+  if (!permission_name) {
     return res.status(500).json({
-      success :false,
-      message : "permission_name is required"
-    })
+      success: false,
+      message: "permission_name is required",
+    });
   }
-  next()
-
-}
-
+  next();
+};
 
 const permisssionDeleteValidator = (req, res, next) => {
   const { _id } = req.body;
@@ -20,56 +17,71 @@ const permisssionDeleteValidator = (req, res, next) => {
   if (!_id) {
     return res.status(400).json({
       success: false,
-      message: "id is required!"
+      message: "id is required!",
     });
   }
   next();
-}
+};
 
+const permisssionUpdateValidator = (req, res, next) => {
+  const { _id, permission_name } = req.body;
 
-
-const permisssionUpdateValidator = (req,res,next)=>{
-   const { _id, permission_name} = req.body;
-  
-
-  if (! _id || !permission_name) {
+  if (!_id || !permission_name) {
     return res.status(400).json({
       success: false,
-      message: "id and permission_name are required!"
+      message: "id and permission_name are required!",
     });
   }
   next();
-}
+};
 
-
-const addCategoryVaidator = (req,res,next)=>{
-  const {category_name} = req.body;
-  if(!category_name){
+const addCategoryVaidator = (req, res, next) => {
+  const { category_name } = req.body;
+  if (!category_name) {
     return res.status(500).json({
-      success:false,
-      message:"category_name is required!"
-    })
+      success: false,
+      message: "category_name is required!",
+    });
   }
   next();
-}
+};
 
+const updateCategoryValidator = (req, res, next) => {};
 
-
-const updateCategoryValidator = (req,res,next)=>{
-
-}
-
-const addPostValidator = (req,res,next)=>{
-  const {title , description} = req.body;
-  if(!title || !description){
+const addPostValidator = (req, res, next) => {
+  const { title, description } = req.body;
+  if (!title || !description) {
     return res.status(500).json({
-      success:false,
-      message:"Enter title snd description!"
-    })
-
+      success: false,
+      message: "Enter title snd description!",
+    });
   }
-  next()
+  next();
+};
+
+const deletePostValidator = (req, res, next) => {
+  const { _id } = req.body;
+  if (!_id) {
+    res.status(500).json({
+      success: false,
+      message: "Post id is required!",
+    });
+  }
+  next();
+};
+
+
+const updatePostValidator = (req,res,next)=>{
 
 }
 
-module.exports = {permissionAddValidator,permisssionDeleteValidator,permisssionUpdateValidator,addCategoryVaidator,updateCategoryValidator,addPostValidator}
+module.exports = {
+  permissionAddValidator,
+  permisssionDeleteValidator,
+  permisssionUpdateValidator,
+  addCategoryVaidator,
+  updateCategoryValidator,
+  addPostValidator,
+  deletePostValidator,
+  updatePostValidator
+};

@@ -1,28 +1,43 @@
-const express = require("express")
-const router = express.Router()
-const {addPermission ,getPermissions,deletePermission,updatePermission} = require("../controllers/admin/permissionController")
-const {addCategoryVaidator,updateCategoryValidator,addPostValidator} = require("../helpers/adminValidator")
-const {addCategory ,getCategories,deleteCategory,updateCatagory,addPost,getAllPosts} = require("../controllers/commonController")
+const express = require("express");
+const router = express.Router();
 
-const {verifyToken} = require("../middlewares/authMiddleware")
+const {
+  addCategoryVaidator,
+  updateCategoryValidator,
+  addPostValidator,
+  deletePostValidator,
+  updatePostValidator
+} = require("../helpers/adminValidator");
+const {
+  addCategory,
+  getCategories,
+  deleteCategory,
+  updateCatagory,
+  addPost,
+  getAllPosts,
+  deletePost,
+  updatePost
+} = require("../controllers/commonController");
 
+const { verifyToken } = require("../middlewares/authMiddleware");
 
 //Category Routes
 
-router.post("/add-category",verifyToken,addCategoryVaidator,addCategory)
-router.get("/get-categories",verifyToken,getCategories)
-router.get("/delete-category",verifyToken,deleteCategory)
-router.post("/update-category",verifyToken,updateCategoryValidator,updateCatagory)
-
-
+router.post("/add-category", verifyToken, addCategoryVaidator, addCategory);
+router.get("/get-categories", verifyToken, getCategories);
+router.post("/delete-category", verifyToken, deleteCategory);
+router.post(
+  "/update-category",
+  verifyToken,
+  updateCategoryValidator,
+  updateCatagory
+);
 
 //Post routes
 
-router.post("/add-post", verifyToken,addPostValidator,addPost)
-router.get("/get-posts", verifyToken,getAllPosts)
+router.post("/add-post", verifyToken, addPostValidator, addPost);
+router.get("/get-posts", verifyToken, getAllPosts);
+router.post("/delete-post", verifyToken, deletePostValidator, deletePost);
+router.post("/update-post", verifyToken, updatePostValidator, updatePost);
 
-
-module.exports = router
-
-
-
+module.exports = router;

@@ -73,65 +73,94 @@ const deleteCategory = async (req, res) => {
   }
 };
 
+const updateCatagory = (req, res) => {};
 
-const updateCatagory = (req,res)=>{
-  
-}
-
-
-
-const addPost =async(req,res)=>{
-
+const addPost = async (req, res) => {
   try {
-
-    const {title , description } = req.body
+    const { title, description } = req.body;
 
     const obj = {
       title,
-      description
+      description,
+    };
+
+    if (req.body.categories) {
+      obj.categories = req.body.categories;
     }
 
-    if(req.body.categories){
-      obj.categories = req.body.categories
-    }
+    const newPost = new Post(obj);
+    const postData = await newPost.save();
 
-    const newPost = new Post(obj)
-    const postData = await newPost.save()
-    
-
-    const postFullData = await Post.findOne({_id:postData._id}).populate("categories")
+    const postFullData = await Post.findOne({ _id: postData._id }).populate(
+      "categories"
+    );
 
     return res.status(200).json({
-    success:true,
-    message:"Post saved successful!",
-    data : postFullData
-  })
+      success: true,
+      message: "Post saved successful!",
+      data: postFullData,
+    });
   } catch (error) {
-      return res.status(500).json({
-    success:false,
-    message:"error adding post"
-  })
-    
+    return res.status(500).json({
+      success: false,
+      message: "error adding post",
+    });
   }
+};
+
+const getAllPosts = async (req, res) => {
+  try {
+    const postsData = await Post.find({}).populate("categories");
+    return res.status(200).json({
+      success: true,
+      message: "Posts Fetched",
+      data: postsData,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "error getting posts",
+    });
+  }
+};
+
+const deletePost = async (req, res) => {
+  try {
+    const { _id } = req.body;
+    const post = await Post.findById({ _id });
+    if (!post) {
+      return res.status(500).json({
+        success: false,
+        message: "error deleting post",
+      });
+    }
+
+    const deleted = await Post.findByIdAndDelete({ _id });
+    return res.status(200).json({
+      success: true,
+      message: "Post deleted!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "error deleting post",
+    });
+  }
+};
+
+
+
+const updatePost = (req,res)=>{
+
 }
 
-
-const getAllPosts = async(req,res)=>{
-  
-  try {
-    const postsData = await Post.find({}).populate("categories")
-    return res.status(200).json({
-      success:true,
-      message:"Posts Fetched",
-      data:postsData
-    })
-
-  }  catch (error) {
-      return res.status(500).json({
-    success:false,
-    message:"error getting posts"
-  })
-
-}}
-
-module.exports = { addCategory, getCategories, deleteCategory ,updateCatagory,addPost,getAllPosts};
+module.exports = {
+  addCategory,
+  getCategories,
+  deleteCategory,
+  updateCatagory,
+  addPost,
+  getAllPosts,
+  deletePost,
+  updatePost
+};
