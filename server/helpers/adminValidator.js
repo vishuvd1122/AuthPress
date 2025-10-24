@@ -72,6 +72,15 @@ const deletePostValidator = (req, res, next) => {
 
 
 const updatePostValidator = (req,res,next)=>{
+  const {_id, title, description} = req.body
+  if(!_id || !title ||!description){
+    res.status(500).json({
+      success: false,
+      message: "Post id, title and description are required!",
+    });
+    
+  }
+  next()
 
 }
 

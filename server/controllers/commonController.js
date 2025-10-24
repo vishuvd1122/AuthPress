@@ -131,7 +131,7 @@ const deletePost = async (req, res) => {
     if (!post) {
       return res.status(500).json({
         success: false,
-        message: "error deleting post",
+        message: "Post not found",
       });
     }
 
@@ -148,11 +148,42 @@ const deletePost = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  const { _id, title, description } = req.body;
+  const post = await Post.findOne({ _id });
+  console.log(post);
+  
+  //BUG --> User must enter the obeject id equal  to 24 characters or else This code will break. 
+  // Add checks in oeder to ensure that the object id entered by the user is exactly 24 characters
+  
+  if (!post) {
+    return res.status(500).json({
+      success: false,
+      message: "Post not found",
+    });
+  }
 
+  const updateObj = {
+    _id,
+    title,
+    description
+  }
 
-const updatePost = (req,res)=>{
+  if(req.body.categories){
+    updateObj.categories =req.body.categories
+  }
 
-}
+  const updatedPost = await Post.findByIdAndUpdate({_id},{
+    $set : updateObj
+  } , {new : true})
+
+  // console.log(updatedPost)
+  res.status(200).json({
+    success:true,
+    message:"Post Updated",
+    post : updatedPost
+  })
+};
 
 module.exports = {
   addCategory,
@@ -162,5 +193,5 @@ module.exports = {
   addPost,
   getAllPosts,
   deletePost,
-  updatePost
+  updatePost,
 };
